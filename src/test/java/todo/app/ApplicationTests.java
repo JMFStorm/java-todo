@@ -1,4 +1,4 @@
-package koulu.book.store;
+package todo.app;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,11 +16,11 @@ class ApplicationTests
 {
 	
 	@Autowired
-	private TodoController bController;
+	private TodoController tController;
 
 	@Test
 	public void contextLoads()
 	{
-		assertThat(bController).isNotNull();
+		assertThat(tController).isNotNull();
 	}
 }

@@ -18,58 +18,55 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TodoController
 {
 	@Autowired
-	private TodoRepository repository;
+	private TodoRepository tRepository;
 	
 	@Autowired
-	private StateRepository cRepository; 
+	private StateRepository sRepository; 
 	
 	// VIEWS
 	
 	@GetMapping("/todolist")
 	public String getTodolist(Model model)
 	{
-		Iterable<Todo> books = repository.findAll();
-		model.addAttribute("books", books);
+		Iterable<Todo> todos = tRepository.findAll();
+		model.addAttribute("todos", todos);
 		return "todolist";
 	}
 	
 	@GetMapping("/addtodo")
 	public String addTodo(Model model)
 	{
-		model.addAttribute("book", new Todo());
-		model.addAttribute("categories", cRepository.findAll());
+		model.addAttribute("todo", new Todo());
+		model.addAttribute("states", sRepository.findAll());
 		return "addtodo";
 	}
 	
 	@PostMapping("/addtodo")
-	public String saveTodo(Todo book)
+	public String saveTodo(Todo todo)
 	{
-		repository.save(book);
+		tRepository.save(todo);
 		return "redirect:todolist";
 	}
 	
 	@GetMapping("/edittodo/{id}")
-	public String editTodo(@PathVariable("id") Long bookId, Model model)
+	public String editTodo(@PathVariable("id") Long todoId, Model model)
 	{
-		Todo currentBook = repository.findById(bookId).get();
-		model.addAttribute("book", currentBook);
-		model.addAttribute("categories", cRepository.findAll());
+		Todo currentTodo = tRepository.findById(todoId).get();
+		model.addAttribute("todo", currentTodo);
+		model.addAttribute("states", sRepository.findAll());
 		return "edittodo";
 	}
 	
 	@PostMapping("/edittodo/save/{id}")
 	public String saveEditTodo(@PathVariable("id") Long bookId, Todo book)
 	{
-		if (repository.existsById(bookId))
+		if (tRepository.existsById(bookId))
 		{
-			Todo currentBook = repository.findById(bookId).get();
-			currentBook.author = book.author;
+			Todo currentBook = tRepository.findById(bookId).get();
 			currentBook.title = book.title;
-			currentBook.isbn = book.isbn;
-			currentBook.year = book.year;
 			currentBook.state = book.getState();
 			
-			repository.save(currentBook);
+			tRepository.save(currentBook);
 		}
 		
 		return "redirect:../../todolist";
@@ -77,24 +74,24 @@ public class TodoController
 	
 	@GetMapping("/delete/{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public String deleteTodo(@PathVariable("id") Long bookId, Model model)
+	public String deleteTodo(@PathVariable("id") Long todoId, Model model)
 	{
-		repository.deleteById(bookId);
+		tRepository.deleteById(todoId);
 		return "redirect:../todolist";
 	}
 	
 	// REST
 	
     @RequestMapping(value="/todos", method = RequestMethod.GET)
-    public @ResponseBody List<Todo> bookListRest()
+    public @ResponseBody List<Todo> todoListRest()
     {	
-        return (List<Todo>) repository.findAll();
+        return (List<Todo>) tRepository.findAll();
     }
     
     @RequestMapping(value="/todo/{id}", method = RequestMethod.GET)
-    public @ResponseBody Optional<Todo> findBookRest(@PathVariable("id") Long bookId)
+    public @ResponseBody Optional<Todo> findTodoRest(@PathVariable("id") Long todoId)
     {
-    	var x = repository.findById(bookId);
+    	var x = tRepository.findById(todoId);
     	return x;
     }   
    

@@ -30,9 +30,9 @@ public class Application
 			sRepo.save(c4);
 			sRepo.save(c5);
 			
-			tRepo.save(new Todo("Clean your room", "Janne", "123232-12", 2020, 99.95d, c1));
-			tRepo.save(new Todo("Do your homework", "Anniina", "334455-12", 2022, 19.95d, c3));
-			tRepo.save(new Todo("Cook food", "Janne", "143423-92", 2020, 199.95d, c2));
+			tRepo.save(new Todo("Clean your room", c1));
+			tRepo.save(new Todo("Do your homework", c3));
+			tRepo.save(new Todo("Cook food", c2));
 			
 			// salasana1, $2a$10$zglslVQzVVoDs7zZyjJvD.4luHBHutb7YyaMoJaop.tV8I1QZ81FS
 			User user1 = new User("user", "$2a$10$zglslVQzVVoDs7zZyjJvD.4luHBHutb7YyaMoJaop.tV8I1QZ81FS", "USER");

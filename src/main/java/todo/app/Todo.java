@@ -30,62 +30,14 @@ public class Todo
 		this.title = title;
 	}
 	
-	@Column
-	public String author;
-	public String getAuthor()
-	{
-		return author;
-	}
-	public void setAuthor(String author)
-	{
-		this.author = author;
-	}
-	
-	@Column
-	public String isbn;
-	public String getIsbn()
-	{
-		return isbn;
-	}
-	public void setIsbn(String isbn)
-	{
-		this.isbn = isbn;
-	}
-	
-	@Column
-	public int year;
-	public int getYear()
-	{
-		return year;
-	}
-	public void setYear(int year)
-	{
-		this.year = year;
-	}
-	
-	@Column
-	public double price;
-	public double getPrice()
-	{
-		return price;
-	}
-	public void setPrice(double price)
-	{
-		this.price = price;
-	}
-	
 	
 	public Todo()
 	{
 	}
 	
-	public Todo(String title, String author, String isbn, int year, double price, State state)
+	public Todo(String title, State state)
 	{
 		this.title = title;
-		this.author = author;
-		this.isbn = isbn;
-		this.year = year;
-		this.price = price;
 		this.state = state;
 	}
 	
