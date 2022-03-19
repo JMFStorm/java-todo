@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	<head>
+	    <meta charset="UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>Todos</title>
+	</head>
+	
+	<body>
+		<header>
+			<h3 th:inline="text">User: [[${#httpServletRequest.remoteUser}]]</h1>
+			
+			<form th:action="@{/logout}" method="post">
+			 	<input type="submit" value="Logout"/>
+			</form>
+		</header>
+	
+	    <h1>Todos</h1>
+		
+		<table>
+		
+		  <tr>
+		    <th>Task</th>
+			<th>State</th>
+		  </tr>
+		  
+		  <tr th:each="book : ${books}">
+		  	<td th:text="${book.title}"></td>
+			<td th:text="${book.category}"></td>
+			
+			<td>
+		    	<a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a>
+		    </td>
+		    
+		    <td sec:authorize="hasAuthority('ADMIN')">
+		    	<a th:href="@{/delete/{id}(id=${book.id})}">Delete</a>
+		    </td>
+		    
+		  </tr>
+		  
+		</table>
+		
+		<a href="/addbook">Add New Task</a>
+		
+	</body>
+	
+</html>

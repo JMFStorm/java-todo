@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta charset="UTF-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    <title>Edit todo</title>
+	</head>
+	
+	<body>
+		<header>
+			<h3 th:inline="text">User: [[${#httpServletRequest.remoteUser}]]</h1>
+			
+			<form th:action="@{/logout}" method="post">
+			 	<input type="submit" value="Logout"/>
+			</form>
+		</header>
+		
+	    <h1>Edit Task</h1>
+		
+    	    <form 
+	    	    th:object="${book}"
+	    	    modelAttribute="book"
+	    	    th:action="@{save/{id}(id=${book.id})}"
+	    	    action="@{save}"
+	    	    method="post">
+	    	    
+	    	   	<label for="title">Task</label>
+				<input type="text" id="title" th:field="*{title}" />
+				
+				<label for="categoryList">Category</label>
+			 	<select id="categoryList" th:field="*{category}" class="form-control">
+       				<option th:each="category: ${categories}"
+					   th:value="${category.id}"
+					   th:text="${category.name}"></option>
+    			</select>
+				
+			    <input type="submit" value="Save" />
+			    
+			</form>
+	</body>
+</html>
