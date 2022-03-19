@@ -14,25 +14,25 @@ public class Application
 	}
 	
 	@Bean
-	CommandLineRunner commandLineRunner (BookRepository bRepo, CategoryRepository cRepo, UserRepository uRepo)
+	CommandLineRunner commandLineRunner (TodoRepository tRepo, StateRepository sRepo, UserRepository uRepo)
 	{
 		return (args) -> {
 			
-			Category c1 = new Category("Unknown");
-			Category c2 = new Category("Thinking about it");
-			Category c3 = new Category("Working on it");
-			Category c4 = new Category("Not sure if ready");
-			Category c5 = new Category("Done, I think...");
+			State c1 = new State("Unknown");
+			State c2 = new State("Thinking about it");
+			State c3 = new State("Working on it");
+			State c4 = new State("Not sure if ready");
+			State c5 = new State("Done, I think...");
 			
-			cRepo.save(c1);
-			cRepo.save(c2);
-			cRepo.save(c3);
-			cRepo.save(c4);
-			cRepo.save(c5);
+			sRepo.save(c1);
+			sRepo.save(c2);
+			sRepo.save(c3);
+			sRepo.save(c4);
+			sRepo.save(c5);
 			
-			bRepo.save(new Book("Clean your room", "Janne", "123232-12", 2020, 99.95d, c1));
-			bRepo.save(new Book("Do your homework", "Anniina", "334455-12", 2022, 19.95d, c3));
-			bRepo.save(new Book("Cook food", "Janne", "143423-92", 2020, 199.95d, c2));
+			tRepo.save(new Todo("Clean your room", "Janne", "123232-12", 2020, 99.95d, c1));
+			tRepo.save(new Todo("Do your homework", "Anniina", "334455-12", 2022, 19.95d, c3));
+			tRepo.save(new Todo("Cook food", "Janne", "143423-92", 2020, 199.95d, c2));
 			
 			// salasana1, $2a$10$zglslVQzVVoDs7zZyjJvD.4luHBHutb7YyaMoJaop.tV8I1QZ81FS
 			User user1 = new User("user", "$2a$10$zglslVQzVVoDs7zZyjJvD.4luHBHutb7YyaMoJaop.tV8I1QZ81FS", "USER");

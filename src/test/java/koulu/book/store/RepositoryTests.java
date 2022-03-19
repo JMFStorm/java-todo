@@ -10,10 +10,10 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import todo.app.Book;
-import todo.app.BookRepository;
-import todo.app.Category;
-import todo.app.CategoryRepository;
+import todo.app.Todo;
+import todo.app.TodoRepository;
+import todo.app.State;
+import todo.app.StateRepository;
 
 import org.junit.jupiter.api.Test;
 
@@ -22,16 +22,16 @@ import org.junit.jupiter.api.Test;
 public class RepositoryTests
 {
 	 @Autowired
-	 private BookRepository bRepository;
+	 private TodoRepository bRepository;
 	 
 	 @Autowired
-	 private CategoryRepository cRepository;
+	 private StateRepository cRepository;
 	 
 	 @Test
 	 public void createNewBook()
 	 {
-		 Category category = new Category("Category");
-		 Book book = new Book("Title", "Author", "isbn", 2000, 100.0d, category);
+		 State category = new State("Category");
+		 Todo book = new Todo("Title", "Author", "isbn", 2000, 100.0d, category);
 		 
 		 bRepository.save(book);
 		 
@@ -41,7 +41,7 @@ public class RepositoryTests
 	 @Test
 	 public void findAllBooks()
 	 {
-	     Iterable<Book> books = bRepository.findAll();
+	     Iterable<Todo> books = bRepository.findAll();
 	     
 	     assertThat(books).isNotEmpty();
 	 }
@@ -49,7 +49,7 @@ public class RepositoryTests
 	 @Test
 	 public void deleteBook()
 	 {
-		 Optional<Book> book = bRepository.findById((long)3);
+		 Optional<Todo> book = bRepository.findById((long)3);
 		 assertThat(book).isNotNull();
 		 
 		 bRepository.deleteById((long)3);
@@ -61,7 +61,7 @@ public class RepositoryTests
 	 @Test
 	 public void createNewCategory()
 	 {
-		 Category category = new Category("Category");
+		 State category = new State("Category");
 		 
 		 cRepository.save(category);
 		 
@@ -71,7 +71,7 @@ public class RepositoryTests
 	 @Test
 	 public void findAllCategories()
 	 {
-	     Iterable<Category> categories = cRepository.findAll();
+	     Iterable<State> categories = cRepository.findAll();
 	     
 	     assertThat(categories).isNotEmpty();
 	 }
@@ -79,7 +79,7 @@ public class RepositoryTests
 	 @Test
 	 public void deleteCategory()
 	 {
-		 Optional<Category> category = cRepository.findById((long)1);
+		 Optional<State> category = cRepository.findById((long)1);
 		 assertThat(category).isNotNull();
 		 
 		 cRepository.deleteById((long)1);

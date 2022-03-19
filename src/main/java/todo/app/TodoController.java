@@ -18,17 +18,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class TodoController
 {
 	@Autowired
-	private BookRepository repository;
+	private TodoRepository repository;
 	
 	@Autowired
-	private CategoryRepository cRepository; 
+	private StateRepository cRepository; 
 	
 	// VIEWS
 	
 	@GetMapping("/todolist")
 	public String getTodolist(Model model)
 	{
-		Iterable<Book> books = repository.findAll();
+		Iterable<Todo> books = repository.findAll();
 		model.addAttribute("books", books);
 		return "todolist";
 	}
@@ -36,13 +36,13 @@ public class TodoController
 	@GetMapping("/addtodo")
 	public String addTodo(Model model)
 	{
-		model.addAttribute("book", new Book());
+		model.addAttribute("book", new Todo());
 		model.addAttribute("categories", cRepository.findAll());
 		return "addtodo";
 	}
 	
 	@PostMapping("/addtodo")
-	public String saveTodo(Book book)
+	public String saveTodo(Todo book)
 	{
 		repository.save(book);
 		return "redirect:todolist";
@@ -51,23 +51,23 @@ public class TodoController
 	@GetMapping("/edittodo/{id}")
 	public String editTodo(@PathVariable("id") Long bookId, Model model)
 	{
-		Book currentBook = repository.findById(bookId).get();
+		Todo currentBook = repository.findById(bookId).get();
 		model.addAttribute("book", currentBook);
 		model.addAttribute("categories", cRepository.findAll());
 		return "edittodo";
 	}
 	
 	@PostMapping("/edittodo/save/{id}")
-	public String saveEditTodo(@PathVariable("id") Long bookId, Book book)
+	public String saveEditTodo(@PathVariable("id") Long bookId, Todo book)
 	{
 		if (repository.existsById(bookId))
 		{
-			Book currentBook = repository.findById(bookId).get();
+			Todo currentBook = repository.findById(bookId).get();
 			currentBook.author = book.author;
 			currentBook.title = book.title;
 			currentBook.isbn = book.isbn;
 			currentBook.year = book.year;
-			currentBook.category = book.getCategory();
+			currentBook.state = book.getState();
 			
 			repository.save(currentBook);
 		}
@@ -86,13 +86,13 @@ public class TodoController
 	// REST
 	
     @RequestMapping(value="/todos", method = RequestMethod.GET)
-    public @ResponseBody List<Book> bookListRest()
+    public @ResponseBody List<Todo> bookListRest()
     {	
-        return (List<Book>) repository.findAll();
+        return (List<Todo>) repository.findAll();
     }
     
     @RequestMapping(value="/todo/{id}", method = RequestMethod.GET)
-    public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId)
+    public @ResponseBody Optional<Todo> findBookRest(@PathVariable("id") Long bookId)
     {
     	var x = repository.findById(bookId);
     	return x;

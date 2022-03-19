@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class Book
+public class Todo
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -75,18 +75,18 @@ public class Book
 	}
 	
 	
-	public Book()
+	public Todo()
 	{
 	}
 	
-	public Book(String title, String author, String isbn, int year, double price, Category category)
+	public Todo(String title, String author, String isbn, int year, double price, State state)
 	{
 		this.title = title;
 		this.author = author;
 		this.isbn = isbn;
 		this.year = year;
 		this.price = price;
-		this.category = category;
+		this.state = state;
 	}
 	
 	@Override
@@ -96,15 +96,15 @@ public class Book
 	}
 	
 	@ManyToOne
-	@JoinColumn(name="categoryid")
-	public Category category;
+	@JoinColumn(name="stateid")
+	public State state;
 	
-	public Category getCategory()
+	public State getState()
 	{
-		return category;
+		return state;
 	}
-	public void setCategory(Category category)
+	public void setState(State state)
 	{
-		this.category = category;
+		this.state = state;
 	}
 }

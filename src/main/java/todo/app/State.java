@@ -11,13 +11,13 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class Category
+public class State
 {
-	public Category()
+	public State()
 	{
 	}
 	
-	public Category(String name)
+	public State(String name)
 	{
 		this.name = name;
 	}
@@ -41,16 +41,16 @@ public class Category
 		this.name = name;
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy ="category")
-	public List<Book> books;
+	@OneToMany(cascade = CascadeType.ALL, mappedBy ="state")
+	public List<Todo> todos;
 	
-	public List<Book> getBooks()
+	public List<Todo> getTodos()
 	{
-		return books;
+		return todos;
 	}
-	public void setBooks(List<Book> books)
+	public void setTodos(List<Todo> todos)
 	{
-		this.books = books;
+		this.todos = todos;
 	}
 	
 	@Override
