@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class BookController
+public class TodoController
 {
 	@Autowired
 	private BookRepository repository;
@@ -25,40 +25,40 @@ public class BookController
 	
 	// VIEWS
 	
-	@GetMapping("/booklist")
-	public String getBooklist(Model model)
+	@GetMapping("/todolist")
+	public String getTodolist(Model model)
 	{
 		Iterable<Book> books = repository.findAll();
 		model.addAttribute("books", books);
-		return "booklist";
+		return "todolist";
 	}
 	
-	@GetMapping("/addbook")
-	public String addBook(Model model)
+	@GetMapping("/addtodo")
+	public String addTodo(Model model)
 	{
 		model.addAttribute("book", new Book());
 		model.addAttribute("categories", cRepository.findAll());
-		return "addbook";
+		return "addtodo";
 	}
 	
-	@PostMapping("/addbook")
-	public String saveBook(Book book)
+	@PostMapping("/addtodo")
+	public String saveTodo(Book book)
 	{
 		repository.save(book);
-		return "redirect:booklist";
+		return "redirect:todolist";
 	}
 	
-	@GetMapping("/editbook/{id}")
-	public String editBook(@PathVariable("id") Long bookId, Model model)
+	@GetMapping("/edittodo/{id}")
+	public String editTodo(@PathVariable("id") Long bookId, Model model)
 	{
 		Book currentBook = repository.findById(bookId).get();
 		model.addAttribute("book", currentBook);
 		model.addAttribute("categories", cRepository.findAll());
-		return "editbook";
+		return "edittodo";
 	}
 	
-	@PostMapping("/editbook/save/{id}")
-	public String saveEditBook(@PathVariable("id") Long bookId, Book book)
+	@PostMapping("/edittodo/save/{id}")
+	public String saveEditTodo(@PathVariable("id") Long bookId, Book book)
 	{
 		if (repository.existsById(bookId))
 		{
@@ -72,26 +72,26 @@ public class BookController
 			repository.save(currentBook);
 		}
 		
-		return "redirect:../../booklist";
+		return "redirect:../../todolist";
 	}
 	
 	@GetMapping("/delete/{id}")
 	@PreAuthorize("hasAuthority('ADMIN')")
-	public String deleteBook(@PathVariable("id") Long bookId, Model model)
+	public String deleteTodo(@PathVariable("id") Long bookId, Model model)
 	{
 		repository.deleteById(bookId);
-		return "redirect:../booklist";
+		return "redirect:../todolist";
 	}
 	
 	// REST
 	
-    @RequestMapping(value="/books", method = RequestMethod.GET)
+    @RequestMapping(value="/todos", method = RequestMethod.GET)
     public @ResponseBody List<Book> bookListRest()
     {	
         return (List<Book>) repository.findAll();
     }
     
-    @RequestMapping(value="/book/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/todo/{id}", method = RequestMethod.GET)
     public @ResponseBody Optional<Book> findBookRest(@PathVariable("id") Long bookId)
     {
     	var x = repository.findById(bookId);

@@ -30,7 +30,7 @@
 			<td th:text="${book.category}"></td>
 			
 			<td>
-		    	<a th:href="@{/editbook/{id}(id=${book.id})}">Edit</a>
+		    	<a th:href="@{/edittodo/{id}(id=${book.id})}">Edit</a>
 		    </td>
 		    
 		    <td sec:authorize="hasAuthority('ADMIN')">
@@ -41,7 +41,7 @@
 		  
 		</table>
 		
-		<a href="/addbook">Add New Task</a>
+		<a href="/addtodo">Add New Task</a>
 		
 	</body>
 	

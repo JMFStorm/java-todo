@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import todo.app.BookController;
+import todo.app.TodoController;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -16,7 +16,7 @@ class ApplicationTests
 {
 	
 	@Autowired
-	private BookController bController;
+	private TodoController bController;
 
 	@Test
 	public void contextLoads()
